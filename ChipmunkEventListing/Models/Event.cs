@@ -6,16 +6,20 @@ namespace ChipmunkEventListing.Models
     public class Event
     {
         public int ID { get; set; }
-        public string eventTitle { get; set; }
-        public string eventDescription { get; set; }
-        public string image_location { get; set; }
-
-
-        [DataType(DataType.Date)]
-        public DateTime start_date { get; set; }
+        public string EventTitle { get; set; }
+        public string EventDescription { get; set; }
+        public string ImageLocation { get; set; }
+        public int LineupId { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime end_date { get; set; }
+        public DateTime StartDate { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+
+        public int VenueId { get; set; }
+
+        public int UserId { get; set; }
 
     }
 }
