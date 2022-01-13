@@ -2,9 +2,16 @@
 {
     public class Act
     {
-        public int ID { get; set; }
+        public int ActID { get; set; }
         public string ActName { get; set; }
-        public int UserId { get; set; }
-        public int GenreId { get; set; }
+        public int UserID { get; set; }
+        public int GenreID { get; set; }
+        public string GenreName { get; set; }   
+
+
+        //navigation properties
+        public User User { get; set; }
+        public Genre Genre { get; set; }    
+
     }
 }
