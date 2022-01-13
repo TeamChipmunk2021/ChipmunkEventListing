@@ -19,6 +19,21 @@ namespace ChipmunkEventListing.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AttendanceUser", b =>
+                {
+                    b.Property<int>("AttendancesAttendanceID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersUserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AttendancesAttendanceID", "UsersUserID");
+
+                    b.HasIndex("UsersUserID");
+
+                    b.ToTable("AttendanceUser");
+                });
+
             modelBuilder.Entity("ChipmunkEventListing.Models.Act", b =>
                 {
                     b.Property<int>("ActID")
@@ -27,12 +42,14 @@ namespace ChipmunkEventListing.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ActName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GenreID")
                         .HasColumnType("int");
 
                     b.Property<string>("GenreName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("LineUpID")
@@ -59,18 +76,17 @@ namespace ChipmunkEventListing.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EventID")
+                    b.Property<int?>("EventID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("AttendanceID");
 
                     b.HasIndex("EventID")
-                        .IsUnique();
-
-                    b.HasIndex("UserID");
+                        .IsUnique()
+                        .HasFilter("[EventID] IS NOT NULL");
 
                     b.ToTable("Attendance");
                 });
@@ -86,12 +102,15 @@ namespace ChipmunkEventListing.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EventDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageLocation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LineupID")
@@ -100,7 +119,8 @@ namespace ChipmunkEventListing.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("VenueID")
@@ -124,6 +144,7 @@ namespace ChipmunkEventListing.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GenreName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GenreID");
@@ -142,6 +163,7 @@ namespace ChipmunkEventListing.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ActName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LineUpID");
@@ -151,21 +173,24 @@ namespace ChipmunkEventListing.Migrations
 
             modelBuilder.Entity("ChipmunkEventListing.Models.User", b =>
                 {
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UserCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");
@@ -181,21 +206,27 @@ namespace ChipmunkEventListing.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Accessibility_Info")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Age_Restrictions")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contact_Info")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Venue_Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Venue_Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Venue_Website")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VenueID");
@@ -216,6 +247,21 @@ namespace ChipmunkEventListing.Migrations
                     b.HasIndex("VenuesVenueID");
 
                     b.ToTable("EventVenue");
+                });
+
+            modelBuilder.Entity("AttendanceUser", b =>
+                {
+                    b.HasOne("ChipmunkEventListing.Models.Attendance", null)
+                        .WithMany()
+                        .HasForeignKey("AttendancesAttendanceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ChipmunkEventListing.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.Act", b =>
@@ -245,19 +291,9 @@ namespace ChipmunkEventListing.Migrations
                 {
                     b.HasOne("ChipmunkEventListing.Models.Event", "Event")
                         .WithOne("Attendances")
-                        .HasForeignKey("ChipmunkEventListing.Models.Attendance", "EventID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ChipmunkEventListing.Models.User", "Users")
-                        .WithMany("Attendances")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ChipmunkEventListing.Models.Attendance", "EventID");
 
                     b.Navigation("Event");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.Event", b =>
@@ -296,21 +332,21 @@ namespace ChipmunkEventListing.Migrations
 
             modelBuilder.Entity("ChipmunkEventListing.Models.Event", b =>
                 {
-                    b.Navigation("Attendances");
+                    b.Navigation("Attendances")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.LineUp", b =>
                 {
                     b.Navigation("Acts");
 
-                    b.Navigation("Event");
+                    b.Navigation("Event")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.User", b =>
                 {
                     b.Navigation("Acts");
-
-                    b.Navigation("Attendances");
 
                     b.Navigation("Events");
                 });

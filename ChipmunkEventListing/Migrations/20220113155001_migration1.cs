@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ChipmunkEventListing.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace ChipmunkEventListing.Migrations
                 {
                     GenreID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GenreName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GenreName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace ChipmunkEventListing.Migrations
                     LineUpID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ActID = table.Column<int>(type: "int", nullable: false),
-                    ActName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ActName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,9 +40,9 @@ namespace ChipmunkEventListing.Migrations
                 {
                     UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -56,12 +56,12 @@ namespace ChipmunkEventListing.Migrations
                 {
                     VenueID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Venue_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Venue_Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Venue_Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Contact_Info = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Age_Restrictions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Accessibility_Info = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Venue_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Venue_Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Venue_Website = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contact_Info = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age_Restrictions = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Accessibility_Info = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,10 +74,10 @@ namespace ChipmunkEventListing.Migrations
                 {
                     ActID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ActName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     GenreID = table.Column<int>(type: "int", nullable: false),
-                    GenreName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GenreName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LineUpID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -109,9 +109,9 @@ namespace ChipmunkEventListing.Migrations
                 {
                     EventID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EventTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VenueID = table.Column<int>(type: "int", nullable: false),
@@ -141,8 +141,8 @@ namespace ChipmunkEventListing.Migrations
                 {
                     AttendanceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    EventID = table.Column<int>(type: "int", nullable: true),
+                    UserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -152,13 +152,7 @@ namespace ChipmunkEventListing.Migrations
                         column: x => x.EventID,
                         principalTable: "Event",
                         principalColumn: "EventID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Attendance_User_UserID",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,6 +179,30 @@ namespace ChipmunkEventListing.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AttendanceUser",
+                columns: table => new
+                {
+                    AttendancesAttendanceID = table.Column<int>(type: "int", nullable: false),
+                    UsersUserID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttendanceUser", x => new { x.AttendancesAttendanceID, x.UsersUserID });
+                    table.ForeignKey(
+                        name: "FK_AttendanceUser_Attendance_AttendancesAttendanceID",
+                        column: x => x.AttendancesAttendanceID,
+                        principalTable: "Attendance",
+                        principalColumn: "AttendanceID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AttendanceUser_User_UsersUserID",
+                        column: x => x.UsersUserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Act_GenreID",
                 table: "Act",
@@ -204,12 +222,13 @@ namespace ChipmunkEventListing.Migrations
                 name: "IX_Attendance_EventID",
                 table: "Attendance",
                 column: "EventID",
-                unique: true);
+                unique: true,
+                filter: "[EventID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attendance_UserID",
-                table: "Attendance",
-                column: "UserID");
+                name: "IX_AttendanceUser_UsersUserID",
+                table: "AttendanceUser",
+                column: "UsersUserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Event_LineupID",
@@ -234,7 +253,7 @@ namespace ChipmunkEventListing.Migrations
                 name: "Act");
 
             migrationBuilder.DropTable(
-                name: "Attendance");
+                name: "AttendanceUser");
 
             migrationBuilder.DropTable(
                 name: "EventVenue");
@@ -243,10 +262,13 @@ namespace ChipmunkEventListing.Migrations
                 name: "Genre");
 
             migrationBuilder.DropTable(
-                name: "Event");
+                name: "Attendance");
 
             migrationBuilder.DropTable(
                 name: "Venue");
+
+            migrationBuilder.DropTable(
+                name: "Event");
 
             migrationBuilder.DropTable(
                 name: "LineUp");

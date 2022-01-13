@@ -18,7 +18,7 @@ namespace ChipmunkEventListing.Models
 
         
         public int VenueID { get; set; }
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
         public int LineupID { get; set; }
 
 
