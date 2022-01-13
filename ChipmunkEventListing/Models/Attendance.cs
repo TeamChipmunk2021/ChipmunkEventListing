@@ -4,10 +4,10 @@ namespace ChipmunkEventListing.Models
 {
     public class Attendance
     {
-        public int AttendanceID { get; set; }
-        public int EventID { get; set; }
+        public int? AttendanceID { get; set; }
+        public int? EventID { get; set; }
         [ForeignKey("UserID")]
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
 
         //navigation properties
        public ICollection<User> Users { get; set; }   
