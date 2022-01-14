@@ -78,7 +78,7 @@ namespace ChipmunkEventListing.Pages.Users
             Users = await PaginatedList<User>.CreateAsync(
                 usersIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
 
-           // Users = await usersIQ.AsNoTracking().ToListAsync();
+            // Users = await usersIQ.AsNoTracking().ToListAsync();
         }
     }
 }

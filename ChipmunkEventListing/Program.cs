@@ -29,8 +29,8 @@ namespace ChipmunkEventListing
                 var services = scope.ServiceProvider;
                 try
                 {
-                   var context = services.GetRequiredService<EventContext>();
-                    context.Database.EnsureCreated();
+                    var context = services.GetRequiredService<EventContext>();
+                    //context.Database.EnsureCreated();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
@@ -40,8 +40,6 @@ namespace ChipmunkEventListing
                 }
             }
         }
-
-
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

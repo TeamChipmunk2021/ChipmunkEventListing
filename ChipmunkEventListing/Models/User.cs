@@ -14,14 +14,12 @@ namespace ChipmunkEventListing.Models
         public string Password { get; set; }
 
 
-
         [DataType(DataType.Date)]
         public DateTime UserCreated { get; set; }
 
         //navigation properties
         public ICollection<Attendance> Attendances { get; set; }
         public ICollection<Event> Events { get; set; }
-        public ICollection<Act> Acts { get; set; }
 
 
     }

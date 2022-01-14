@@ -29,10 +29,10 @@ namespace ChipmunkEventListing.Pages.Users
             }
 
             User = await _context.Users
-            .Include(e => e.Events)
-            .ThenInclude(f => f.Attendances)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.UserID == id);
+           .Include(s => s.Events)
+           .ThenInclude(e => e.Attendances)
+           .AsNoTracking()
+           .FirstOrDefaultAsync(m => m.UserID == id);
 
             if (User == null)
             {

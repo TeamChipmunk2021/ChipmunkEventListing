@@ -32,28 +32,26 @@ namespace ChipmunkEventListing.Pages.Users
 
             User = await _context.Users.FindAsync(id);
 
-            if (User== null)
+            if (User == null)
             {
                 return NotFound();
             }
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            var studentToUpdate = await _context.Users.FindAsync(id);
+            var usertoUpdate = await _context.Users.FindAsync(id);
 
-            if (studentToUpdate == null)
+            if (usertoUpdate == null)
             {
                 return NotFound();
             }
 
             if (await TryUpdateModelAsync<User>(
-                studentToUpdate,
-                "student",
-                s => s.Username, s => s.Password, s => s.Email))
+                usertoUpdate,
+                "user",
+                  s => s.Username, s => s.Password, s => s.Email, s => s.UserCreated))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
@@ -62,7 +60,7 @@ namespace ChipmunkEventListing.Pages.Users
             return Page();
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(int? id)
         {
             return _context.Users.Any(e => e.UserID == id);
         }

@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
 namespace ChipmunkEventListing.Pages.Users
@@ -11,13 +9,10 @@ namespace ChipmunkEventListing.Pages.Users
     public class DeleteModel : PageModel
     {
         private readonly ChipmunkEventListing.Data.EventContext _context;
-        private readonly ILogger<DeleteModel> _logger;
 
-        public DeleteModel(ChipmunkEventListing.Data.EventContext context,
-                           ILogger<DeleteModel> logger)
+        public DeleteModel(ChipmunkEventListing.Data.EventContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         [BindProperty]
@@ -42,7 +37,7 @@ namespace ChipmunkEventListing.Pages.Users
 
             if (saveChangesError.GetValueOrDefault())
             {
-                ErrorMessage = String.Format("Attempt to delete {ID} failed. Try again", id);
+                ErrorMessage = "Delete failed. Try again";
             }
 
             return Page();
@@ -55,23 +50,22 @@ namespace ChipmunkEventListing.Pages.Users
                 return NotFound();
             }
 
-            var student = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (student == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
             try
             {
-                _context.Users.Remove(student);
+                _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException /* ex */)
             {
-                _logger.LogError(ex, ErrorMessage);
-
+                //Log the error (uncomment ex variable name and write a log.)
                 return RedirectToAction("./Delete",
                                      new { id, saveChangesError = true });
             }

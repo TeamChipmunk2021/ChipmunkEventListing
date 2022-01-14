@@ -30,19 +30,19 @@ namespace ChipmunkEventListing.Pages.Users
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            var emptyUser = new User();
+            var emptyUser= new User();
 
             if (await TryUpdateModelAsync<User>(
                 emptyUser,
                 "user",   // Prefix for form value.
-                s => s.Username, s => s.Password, s => s.Email))
+               s => s.Username, s => s.Password, s => s.Email, s => s.UserCreated))
             {
                 _context.Users.Add(emptyUser);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
-            return Page();
 
+            return Page();
         }
     }
 }
