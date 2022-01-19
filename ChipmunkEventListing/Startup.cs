@@ -63,7 +63,7 @@ namespace ChipmunkEventListing
             // registering the email sender
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddDbContext<EventListingContext>(options =>
+            services.AddDbContext<EventContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("EventListingContext")));
         }
 

@@ -36,8 +36,8 @@ namespace ChipmunkEventListing.Data
                     EndDate=DateTime.Parse("2022-2-2"),
                     ImageLocation="img loc",
                     User=users[0],
-                    Venue=Venue.Venue1,
-                    Band= Band.Band1
+                    Venue="The Apollo",
+                    Band= "Enter Kings of Dragons"
                 }
 
             };

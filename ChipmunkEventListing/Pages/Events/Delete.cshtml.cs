@@ -12,9 +12,9 @@ namespace ChipmunkEventListing.Pages.Events
 {
     public class DeleteModel : PageModel
     {
-        private readonly ChipmunkEventListing.Data.EventListingContext _context;
+        private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public DeleteModel(ChipmunkEventListing.Data.EventListingContext context)
+        public DeleteModel(ChipmunkEventListing.Data.EventContext context)
         {
             _context = context;
         }
@@ -29,7 +29,7 @@ namespace ChipmunkEventListing.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.EventID == id);
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.EventID == id);
 
             if (Event == null)
             {
@@ -45,11 +45,11 @@ namespace ChipmunkEventListing.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Event.FindAsync(id);
+            Event = await _context.Events.FindAsync(id);
 
             if (Event != null)
             {
-                _context.Event.Remove(Event);
+                _context.Events.Remove(Event);
                 await _context.SaveChangesAsync();
             }
 
