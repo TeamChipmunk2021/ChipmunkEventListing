@@ -62,6 +62,9 @@ namespace ChipmunkEventListing
              });
             // registering the email sender
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddDbContext<EventListingContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("EventListingContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
