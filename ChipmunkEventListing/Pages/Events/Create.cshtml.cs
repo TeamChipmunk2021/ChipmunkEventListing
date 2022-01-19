@@ -12,9 +12,9 @@ namespace ChipmunkEventListing.Pages.Events
 {
     public class CreateModel : PageModel
     {
-        private readonly ChipmunkEventListing.Data.EventListingContext _context;
+        private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public CreateModel(ChipmunkEventListing.Data.EventListingContext context)
+        public CreateModel(ChipmunkEventListing.Data.EventContext context)
         {
             _context = context;
         }
@@ -35,7 +35,7 @@ namespace ChipmunkEventListing.Pages.Events
                 return Page();
             }
 
-            _context.Event.Add(Event);
+            _context.Events.Add(Event);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

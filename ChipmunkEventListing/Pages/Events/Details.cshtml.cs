@@ -12,9 +12,9 @@ namespace ChipmunkEventListing.Pages.Events
 {
     public class DetailsModel : PageModel
     {
-        private readonly ChipmunkEventListing.Data.EventListingContext _context;
+        private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public DetailsModel(ChipmunkEventListing.Data.EventListingContext context)
+        public DetailsModel(ChipmunkEventListing.Data.EventContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace ChipmunkEventListing.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.EventID == id);
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.EventID == id);
 
             if (Event == null)
             {

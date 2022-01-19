@@ -12,9 +12,9 @@ namespace ChipmunkEventListing.Pages.Events
 {
     public class IndexModel : PageModel
     {
-        private readonly ChipmunkEventListing.Data.EventListingContext _context;
+        private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public IndexModel(ChipmunkEventListing.Data.EventListingContext context)
+        public IndexModel(ChipmunkEventListing.Data.EventContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace ChipmunkEventListing.Pages.Events
 
         public async Task OnGetAsync()
         {
-            Event = await _context.Event.ToListAsync();
+            Event = await _context.Events.ToListAsync();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace ChipmunkEventListing.Data
                     ImageLocation="img loc",
                     User=users[0],
                     Venue=Venue.Venue1,
-                    Band= Band.Band1
+                    Band= "Imagine Kings of Dragon"
                 }
 
             };

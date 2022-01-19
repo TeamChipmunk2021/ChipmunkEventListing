@@ -4,10 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChipmunkEventListing.Models
 {
-    public enum Band
-    {
-        Band1, Band2, Band3
-    }
+    
 
     public enum Venue
     {
@@ -15,6 +12,7 @@ namespace ChipmunkEventListing.Models
     }
     public class Event
     {
+        //public string[] Bands = {"Kings of Leon", "Imagine Dragons", "Enter Shikari"};
         public int EventID { get; set; }
         public string EventTitle { get; set; }
         public string EventDescription { get; set; }
@@ -25,9 +23,9 @@ namespace ChipmunkEventListing.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        public Band Band { get; set; }
+        public string Band { get; set; }
+      
         public Venue? Venue { get; set; }
-
 
 
         //navigation properties

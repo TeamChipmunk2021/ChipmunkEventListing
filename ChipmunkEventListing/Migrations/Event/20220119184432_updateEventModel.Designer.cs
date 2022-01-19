@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ChipmunkEventListing.Migrations.EventListing
+namespace ChipmunkEventListing.Migrations.Event
 {
-    [DbContext(typeof(EventListingContext))]
-    [Migration("20220119163705_InitialEventCreate")]
-    partial class InitialEventCreate
+    [DbContext(typeof(EventContext))]
+    [Migration("20220119184432_updateEventModel")]
+    partial class updateEventModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,8 +65,8 @@ namespace ChipmunkEventListing.Migrations.EventListing
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Band")
-                        .HasColumnType("int");
+                    b.Property<string>("Band")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");

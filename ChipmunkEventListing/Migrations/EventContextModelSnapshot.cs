@@ -34,41 +34,6 @@ namespace ChipmunkEventListing.Migrations
                     b.ToTable("AttendanceUser");
                 });
 
-            modelBuilder.Entity("ChipmunkEventListing.Models.Act", b =>
-                {
-                    b.Property<int>("ActID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ActName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GenreID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("GenreName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LineUpID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActID");
-
-                    b.HasIndex("GenreID");
-
-                    b.HasIndex("LineUpID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Act");
-                });
-
             modelBuilder.Entity("ChipmunkEventListing.Models.Attendance", b =>
                 {
                     b.Property<int?>("AttendanceID")
@@ -79,7 +44,7 @@ namespace ChipmunkEventListing.Migrations
                     b.Property<int?>("EventID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserID")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("AttendanceID");
@@ -98,77 +63,35 @@ namespace ChipmunkEventListing.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Band")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EventDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventTitle")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageLocation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LineupID")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UserID")
-                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("VenueID")
+                    b.Property<int?>("Venue")
                         .HasColumnType("int");
 
                     b.HasKey("EventID");
 
-                    b.HasIndex("LineupID")
-                        .IsUnique();
-
                     b.HasIndex("UserID");
 
                     b.ToTable("Event");
-                });
-
-            modelBuilder.Entity("ChipmunkEventListing.Models.Genre", b =>
-                {
-                    b.Property<int>("GenreID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("GenreName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GenreID");
-
-                    b.ToTable("Genre");
-                });
-
-            modelBuilder.Entity("ChipmunkEventListing.Models.LineUp", b =>
-                {
-                    b.Property<int>("LineUpID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ActID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ActName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LineUpID");
-
-                    b.ToTable("LineUp");
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.User", b =>
@@ -179,74 +102,20 @@ namespace ChipmunkEventListing.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UserCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("ChipmunkEventListing.Models.Venue", b =>
-                {
-                    b.Property<int>("VenueID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Accessibility_Info")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Age_Restrictions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Contact_Info")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Venue_Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Venue_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Venue_Website")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VenueID");
-
-                    b.ToTable("Venue");
-                });
-
-            modelBuilder.Entity("EventVenue", b =>
-                {
-                    b.Property<int>("EventsEventID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VenuesVenueID")
-                        .HasColumnType("int");
-
-                    b.HasKey("EventsEventID", "VenuesVenueID");
-
-                    b.HasIndex("VenuesVenueID");
-
-                    b.ToTable("EventVenue");
                 });
 
             modelBuilder.Entity("AttendanceUser", b =>
@@ -264,29 +133,6 @@ namespace ChipmunkEventListing.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ChipmunkEventListing.Models.Act", b =>
-                {
-                    b.HasOne("ChipmunkEventListing.Models.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ChipmunkEventListing.Models.LineUp", null)
-                        .WithMany("Acts")
-                        .HasForeignKey("LineUpID");
-
-                    b.HasOne("ChipmunkEventListing.Models.User", "User")
-                        .WithMany("Acts")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ChipmunkEventListing.Models.Attendance", b =>
                 {
                     b.HasOne("ChipmunkEventListing.Models.Event", "Event")
@@ -298,56 +144,20 @@ namespace ChipmunkEventListing.Migrations
 
             modelBuilder.Entity("ChipmunkEventListing.Models.Event", b =>
                 {
-                    b.HasOne("ChipmunkEventListing.Models.LineUp", "LineUp")
-                        .WithOne("Event")
-                        .HasForeignKey("ChipmunkEventListing.Models.Event", "LineupID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ChipmunkEventListing.Models.User", "User")
                         .WithMany("Events")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LineUp");
+                        .HasForeignKey("UserID");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EventVenue", b =>
-                {
-                    b.HasOne("ChipmunkEventListing.Models.Event", null)
-                        .WithMany()
-                        .HasForeignKey("EventsEventID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ChipmunkEventListing.Models.Venue", null)
-                        .WithMany()
-                        .HasForeignKey("VenuesVenueID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ChipmunkEventListing.Models.Event", b =>
                 {
-                    b.Navigation("Attendances")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ChipmunkEventListing.Models.LineUp", b =>
-                {
-                    b.Navigation("Acts");
-
-                    b.Navigation("Event")
-                        .IsRequired();
+                    b.Navigation("Attendances");
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.User", b =>
                 {
-                    b.Navigation("Acts");
-
                     b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
