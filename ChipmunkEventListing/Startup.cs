@@ -40,8 +40,6 @@ namespace ChipmunkEventListing
 
             services.AddDbContext<EventContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("EventContext")));
-
-
             services.Configure<IdentityOptions>(options =>
              {
                  // Password settings.

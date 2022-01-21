@@ -361,13 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/ChipmunkEventListing/Pages/Events/Index.cshtml.cs
-/ChipmunkEventListing/Pages/Events/Index.cshtml
-/ChipmunkEventListing/Pages/Events/Edit.cshtml.cs
-/ChipmunkEventListing/Pages/Events/Edit.cshtml
-/ChipmunkEventListing/Pages/Events/Details.cshtml.cs
-/ChipmunkEventListing/Pages/Events/Details.cshtml
-/ChipmunkEventListing/Pages/Events/Delete.cshtml.cs
-/ChipmunkEventListing/Pages/Events/Delete.cshtml
-/ChipmunkEventListing/Pages/Events/Create.cshtml.cs
-/ChipmunkEventListing/Pages/Events/Create.cshtml
