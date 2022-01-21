@@ -7,15 +7,19 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.backgroundcolour {
+    color: #064663;
+}
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #ECB365;
+    border-color: #04293A;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

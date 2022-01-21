@@ -4,29 +4,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChipmunkEventListing.Models
 {
-    public enum Band
-    {
-        Band1, Band2, Band3
-    }
-
-    public enum Venue
-    {
-        Venue1, Venue2
-    }
     public class Event
     {
         public int EventID { get; set; }
         public string EventTitle { get; set; }
         public string EventDescription { get; set; }
         public string ImageLocation { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        public Band Band { get; set; }
-        public Venue? Venue { get; set; }
+        public string Band { get; set; }
+        public string Venue { get; set; }
 
 
 
