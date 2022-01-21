@@ -15,6 +15,7 @@ namespace ChipmunkEventListing.Pages
             _logger = logger;
         }
         [BindProperty]
+
         public FileUpload FileUpload { get; set; }
         public void OnGet()
         {
