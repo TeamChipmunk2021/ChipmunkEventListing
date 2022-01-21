@@ -13,9 +13,9 @@ namespace ChipmunkEventListing.Pages.Events
 {
     public class EditModel : PageModel
     {
-        private readonly ChipmunkEventListing.Data.EventListingContext _context;
+        private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public EditModel(ChipmunkEventListing.Data.EventListingContext context)
+        public EditModel(ChipmunkEventListing.Data.EventContext context)
         {
             _context = context;
         }
@@ -30,7 +30,7 @@ namespace ChipmunkEventListing.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.EventID == id);
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.EventID == id);
 
             if (Event == null)
             {
@@ -71,7 +71,7 @@ namespace ChipmunkEventListing.Pages.Events
 
         private bool EventExists(int id)
         {
-            return _context.Event.Any(e => e.EventID == id);
+            return _context.Events.Any(e => e.EventID == id);
         }
     }
 }

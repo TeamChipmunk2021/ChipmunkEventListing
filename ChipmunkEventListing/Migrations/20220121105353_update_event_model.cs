@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ChipmunkEventListing.Migrations.EventListing
+namespace ChipmunkEventListing.Migrations
 {
-    public partial class InitialEventCreate : Migration
+    public partial class update_event_model : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,8 +34,8 @@ namespace ChipmunkEventListing.Migrations.EventListing
                     ImageLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Band = table.Column<int>(type: "int", nullable: false),
-                    Venue = table.Column<int>(type: "int", nullable: true),
+                    Band = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Venue = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
