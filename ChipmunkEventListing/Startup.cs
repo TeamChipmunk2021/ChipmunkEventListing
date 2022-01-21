@@ -30,6 +30,8 @@ namespace ChipmunkEventListing
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -38,10 +40,18 @@ namespace ChipmunkEventListing
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
 
+            services.AddRazorPages(options =>
+            {
+            }).AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Events/Index", "");
+            });
+
+
+
+
             services.AddDbContext<EventContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("EventContext")));
-
-
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.

@@ -5,68 +5,114 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<div class="container-fluid" style="padding-top:20px; padding-bottom:20px">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-page="./Index" method="get">
+                <div class="form-actions no-color">
+                    Find by Event Title:
+                    <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <a asp-page="./Index">Back to full List</a>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="float-right">
+                @{
+                    var prevDisabled = !Model.Events.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.Events.HasNextPage ? "disabled" : "";
+                }
+                <a asp-page="./Index"
+                   asp-route-sortOrder="@Model.CurrentSort"
+                   asp-route-pageIndex="@(Model.Events.PageIndex - 1)"
+                   asp-route-currentFilter="@Model.CurrentFilter"
+                   class="btn btn-primary @prevDisabled">
+                    Previous
+                </a>
+                <a asp-page="./Index"
+                   asp-route-sortOrder="@Model.CurrentSort"
+                   asp-route-pageIndex="@(Model.Events.PageIndex + 1)"
+                   asp-route-currentFilter="@Model.CurrentFilter"
+                   class="btn btn-primary @nextDisabled">
+                    Next
+                </a>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EventTitle)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.EventNameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Events[0].EventTitle)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EventDescription)
+                @Html.DisplayNameFor(model => model.Events[0].EventDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].ImageLocation)
+                @Html.DisplayNameFor(model => model.Events[0].ImageLocation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].StartDate)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.StartDateSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Events[0].StartDate)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EndDate)
+                @Html.DisplayNameFor(model => model.Events[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Band)
+                @Html.DisplayNameFor(model => model.Events[0].Band)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Venue)
+                @Html.DisplayNameFor(model => model.Events[0].Venue)
             </th>
-            <th></th>
+            <th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Event) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Band)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Venue)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.EventID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.EventID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.EventID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Events)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Band)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.EventID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.EventID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.EventID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
