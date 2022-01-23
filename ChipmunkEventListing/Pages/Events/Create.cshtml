@@ -5,29 +5,35 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Event</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Event.EventTitle" class="control-label"></label>
-                <input asp-for="Event.EventTitle" class="form-control" />
-                <span asp-validation-for="Event.EventTitle" class="text-danger"></span>
+<form method="post" class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Add Event</h1>
+               <hr style="background-color:white" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Event.EventTitle" class="control-label"></label>
+                        <input asp-for="Event.EventTitle" class="form-control" />
+                        <span asp-validation-for="Event.EventTitle" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Event.EventDescription" class="control-label"></label>
-                <input asp-for="Event.EventDescription" class="form-control" />
-                <span asp-validation-for="Event.EventDescription" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Event.EventDescription" class="control-label"></label>
+                        <input asp-for="Event.EventDescription" class="form-control" />
+                        <span asp-validation-for="Event.EventDescription" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Event.ImageLocation" class="control-label"></label>
-                <input asp-for="Event.ImageLocation" class="form-control" />
-                <span asp-validation-for="Event.ImageLocation" class="text-danger"></span>
-            </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Event.StartDate" class="control-label"></label>
                 <input asp-for="Event.StartDate" class="form-control" />
@@ -38,27 +44,54 @@
                 <input asp-for="Event.EndDate" class="form-control" />
                 <span asp-validation-for="Event.EndDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Event.Band" class="control-label"></label>
-                <input asp-for="Event.Band" class="form-control" />
-                <span asp-validation-for="Event.Band" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.Venue" class="control-label"></label>
-                <input asp-for="Event.Venue" class="form-control" />
-                <span asp-validation-for="Event.Venue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Event.Band" class="control-label"></label>
+                        <input asp-for="Event.Band" class="form-control" />
+                        <span asp-validation-for="Event.Band" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Event.Venue" class="control-label"></label>
+                        <input asp-for="Event.Venue" class="form-control" />
+                        <span asp-validation-for="Event.Venue" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Event.ImageLocation" class="control-label"></label>
+                <input asp-for="Event.ImageLocation" class="form-control" />
+                <span asp-validation-for="Event.ImageLocation" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+       <hr style="background-color:white" />
+    <div class="form-group">
+        <input type="submit" value="Add Event" class="btn btn-primary" />
+
+
+    </div>
+
+</form>
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }

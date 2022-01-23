@@ -73,5 +73,7 @@ namespace ChipmunkEventListing.Pages.Events
         {
             return _context.Events.Any(e => e.EventID == id);
         }
+
+
     }
 }

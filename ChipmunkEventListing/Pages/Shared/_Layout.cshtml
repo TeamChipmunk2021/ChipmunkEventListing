@@ -2,7 +2,7 @@
 <html lang="en">
 <html colorcharset="utf-8" />
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - ChipmunkEventListing</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" />
@@ -10,14 +10,14 @@
 <body>
 
 
-
-<div class="container-fluid">
+<div class="container headerbg container-boarder">
+<div class="container-fluid" style="padding-left: 0px;">
 	<div class="row">
-		<div class="col-md-12" style="background-color: #ECB365">
-			<div class="row">
-				<div class="col-md-12" style="padding-top:20px; padding-left: 40px;">
+		<div class="col-md-12">
+			<div class="row" style="padding-left: 30px;">
+				<div class="col-md-12 sitetitle" >
 					<h1>
-						Chipmunk Event Listings
+						<u>Chipmunk Event Listings</u>
 					</h1>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
                             <a class="btn btn-primary" asp-area="" asp-page="/Events/Index"> Events</a>
                         </li>
 						<li class="nav-item" style="padding-left:1em">
-                            <a class="btn btn-primary" asp-area="" asp-page="/Events/Create"> Create an Event</a>
+                            <a class="btn btn-primary" asp-area="" asp-page="/Events/Create"> Add Event</a>
                         </li>
                         <li class="nav-item" style="padding-left:1em">
                             <a class="btn btn-primary" asp-area="" asp-page="/Upload"> Upload a File</a>
@@ -45,7 +45,7 @@
 					
 					<ul class="navbar-nav ml-md-auto">
 						<li class="nav-item active">
-						   <partial name="_LoginPartial" />
+						   <partial name="_LoginPartial">
 						</li>
 						<li> <img src="/img/blank_profile.png" class="img" style="max-width:50px ; height:auto"  alt="blank_profile" />
 						</li>
@@ -55,12 +55,10 @@
 		</div>
 	</div>
 </div>
+</div>
 
 
-
-
-
-    <div class="container style='background:#064663'">
+    <div class="container headerbg containerpaddingtop">
         <main role="main" class="pb-3 backgroundcolour">
             @RenderBody()
         </main>
@@ -68,7 +66,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - ChipmunkEventListing - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - Chipmunk Event Listing - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
