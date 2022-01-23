@@ -44,6 +44,7 @@ namespace ChipmunkEventListing
             {
             }).AddRazorPagesOptions(options =>
             {
+           
                 options.Conventions.AddPageRoute("/Events/Index", "");
             });
 
