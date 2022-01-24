@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using ChipmunkEventListing.Authorization;
 using ChipmunkEventListing.Data;
 using ChipmunkEventListing.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace ChipmunkEventListing.Pages.Events
 {
-    public class EditModel : PageModel
+
+    public class EditModel : DI_BasePageModel
     {
         private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public EditModel(ChipmunkEventListing.Data.EventContext context)
+        public EditModel(
+            EventContext context,
+            IAuthorizationService authorisationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorisationService, userManager)
         {
             _context = context;
         }
@@ -36,44 +40,68 @@ namespace ChipmunkEventListing.Pages.Events
             {
                 return NotFound();
             }
+
+
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                      User, Event,
+                                                      EventOperations.Update);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Event).State = EntityState.Modified;
+            // Fetch Contact from DB to get OwnerID.
+            var contact = await Context
+                .Events.AsNoTracking()
+                .FirstOrDefaultAsync(m => m.EventID == id);
 
-            try
+            if (contact == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                     User, contact,
+                                                     EventOperations.Update);
+            if (!isAuthorized.Succeeded)
             {
-                if (!EventExists(Event.EventID))
+                return Forbid();
+            }
+
+            Event.OwnerID = Event.OwnerID;
+
+            Context.Attach(Event).State = EntityState.Modified;
+
+            if (Event.Status == EventStatus.Approved)
+            {
+
+                var canApprove = await AuthorizationService.AuthorizeAsync(User,
+                                        Event,
+                                        EventOperations.Update);
+
+                if (!canApprove.Succeeded)
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    Event.Status = EventStatus.Approved;
                 }
             }
+
+            await Context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
-
-        private bool EventExists(int id)
-        {
-            return _context.Events.Any(e => e.EventID == id);
-        }
-
-
     }
+
+
 }
+
+
