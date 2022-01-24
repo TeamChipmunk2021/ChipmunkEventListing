@@ -8,15 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using ChipmunkEventListing.Data;
 using ChipmunkEventListing.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using ChipmunkEventListing.Authorization;
 
 namespace ChipmunkEventListing.Pages.Events
 {
-    public class IndexModel : PageModel
+   [AllowAnonymous]
+    public class IndexModel : DI_BasePageModel
     {
         private readonly EventContext _context;
 
         private readonly IConfiguration Configuration;
-        public IndexModel(EventContext context, IConfiguration configuration)
+        public IndexModel(
+            EventContext context, 
+            IConfiguration configuration, 
+            IAuthorizationService authorizationService, 
+            UserManager<IdentityUser> userManager)
+            : base(context, authorizationService, userManager)
         {
             _context = context;
             Configuration = configuration;
@@ -52,6 +61,23 @@ namespace ChipmunkEventListing.Pages.Events
 
             IQueryable<Event> eventsIQ = from s in _context.Events
                                        select s;
+
+
+            var isAuthorized = User.IsInRole(Constants.EventManagersRole) ||
+                           User.IsInRole(Constants.EventAdministratorsRole);
+
+            var currentUserId = UserManager.GetUserId(User);
+
+
+
+            if (!isAuthorized)
+            {
+                eventsIQ = eventsIQ.Where(c => c.Status == EventStatus.Approved
+                                            || c.OwnerID == currentUserId);
+            }
+
+
+
 
             if (!String.IsNullOrEmpty(searchString))
             {

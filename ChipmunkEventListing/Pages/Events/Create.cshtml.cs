@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ChipmunkEventListing.Data;
 using ChipmunkEventListing.Models;
+using ChipmunkEventListing.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChipmunkEventListing.Pages.Events
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DI_BasePageModel
     {
-        private readonly ChipmunkEventListing.Data.EventContext _context;
-
-        public CreateModel(ChipmunkEventListing.Data.EventContext context)
+        public CreateModel(
+            EventContext context,
+            IAuthorizationService authorisationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorisationService, userManager)
         {
-            _context = context;
+
         }
 
         public IActionResult OnGet()
@@ -35,8 +40,18 @@ namespace ChipmunkEventListing.Pages.Events
                 return Page();
             }
 
-            _context.Events.Add(Event);
-            await _context.SaveChangesAsync();
+            Event.OwnerID = UserManager.GetUserId(User);
+
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                        User, Event,
+                                                        EventOperations.Create);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
+            Context.Events.Add(Event);
+            await Context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

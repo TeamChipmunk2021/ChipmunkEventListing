@@ -12,5 +12,6 @@ namespace ChipmunkEventListing.Data
             : base(options)
         {
         }
+
     }
 }

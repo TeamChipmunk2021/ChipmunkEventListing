@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ChipmunkEventListing.Authorization;
+using ChipmunkEventListing.Data;
+using ChipmunkEventListing.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ChipmunkEventListing.Data;
-using ChipmunkEventListing.Models;
+using System.Threading.Tasks;
+
 
 namespace ChipmunkEventListing.Pages.Events
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : DI_BasePageModel
     {
         private readonly ChipmunkEventListing.Data.EventContext _context;
 
-        public DeleteModel(ChipmunkEventListing.Data.EventContext context)
+        public DeleteModel(
+            EventContext context,
+            IAuthorizationService authorisationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorisationService, userManager)
         {
             _context = context;
         }
@@ -35,25 +40,71 @@ namespace ChipmunkEventListing.Pages.Events
             {
                 return NotFound();
             }
+
+
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                      User, Event,
+                                                      EventOperations.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            // Fetch Event from DB to get OwnerID.
+            var contact = await Context
+                .Events.AsNoTracking()
+                .FirstOrDefaultAsync(m => m.EventID == id);
+
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            Event = await _context.Events.FindAsync(id);
-
-            if (Event != null)
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                   User, contact,
+                                                   EventOperations.Delete);
+            if (!isAuthorized.Succeeded)
             {
-                _context.Events.Remove(Event);
-                await _context.SaveChangesAsync();
+                return Forbid();
+            }
+
+
+            Event.OwnerID = Event.OwnerID;
+
+            Context.Attach(Event).State = EntityState.Modified;
+
+            if (Event.Status == EventStatus.Approved)
+            {
+
+                var canApprove = await AuthorizationService.AuthorizeAsync(User,
+                                        Event,
+                                        EventOperations.Delete);
+
+                if (!canApprove.Succeeded)
+                {
+                    Event.Status = EventStatus.Approved;
+
+                    if (Event != null)
+                    {
+                        _context.Events.Remove(Event);
+                        await _context.SaveChangesAsync();
+                    }
+                }
             }
 
             return RedirectToPage("./Index");
         }
     }
 }
+
+
