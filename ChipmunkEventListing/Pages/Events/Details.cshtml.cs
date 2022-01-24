@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ChipmunkEventListing.Data;
 using ChipmunkEventListing.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChipmunkEventListing.Pages.Events
 {
+    [AllowAnonymous]
     public class DetailsModel : PageModel
     {
         private readonly ChipmunkEventListing.Data.EventContext _context;
