@@ -5,9 +5,43 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container-fluid" style="margin-bottom: 20px";  word-wrap: break-word>
+	<div class="row">
+		<div class="col-md-2">
+            <h4>Start Date</h4>
+        @Html.DisplayFor(model => model.Event.StartDate)
+		</div>
+		<div class="col-md-10">
+            <h4>Event Title</h4>
+        @Html.DisplayFor(model => model.Event.EventTitle)
+		</div>
+	</div>
+       <hr style="background-color:white" />
+	<div class="row">
+		<div class="col-md-6">
+                @Html.DisplayFor(model => model.Event.ImageLocation)
+		</div>
+		<div class="col-md-6">
+            <h4>Event Description</h4> 
+                 @Html.DisplayFor(model => model.Event.EventDescription)
+		</div>
+	</div>
+       <hr style="background-color:white" />
+	<div class="row">
+		<div class="col-md-6">
+            <h4>Line Up</h4>
+                  @Html.DisplayFor(model => model.Event.Band)
+		</div>
+		<div class="col-md-6">
+            <h4>Venue Information</h4>
+                @Html.DisplayFor(model => model.Event.Venue)
+		</div>
+	</div>
+</div>
 
-<div>
+
+
+@*<div>
     <h4>Event</h4>
     <hr />
     <dl class="row">
@@ -54,7 +88,9 @@
             @Html.DisplayFor(model => model.Event.Venue)
         </dd>
     </dl>
-</div>
+</div>*@
+
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Event.EventID">Edit</a> |
     <a asp-page="./Index">Back to List</a>
