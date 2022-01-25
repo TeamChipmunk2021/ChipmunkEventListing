@@ -4,16 +4,14 @@ using ChipmunkEventListing.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ChipmunkEventListing.Migrations
+namespace ChipmunkEventListing.Migrations.Event
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20220121105353_update_event_model")]
-    partial class update_event_model
+    partial class EventContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,8 +78,14 @@ namespace ChipmunkEventListing.Migrations
                     b.Property<string>("ImageLocation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UserID")
                         .HasColumnType("int");
@@ -94,6 +98,24 @@ namespace ChipmunkEventListing.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("ChipmunkEventListing.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("ChipmunkEventListing.Models.User", b =>

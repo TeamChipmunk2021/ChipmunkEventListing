@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ChipmunkEventListing.Migrations.ApplicationDb
+namespace ChipmunkEventListing.Migrations
 {
-    public partial class migration_needed_I_guess : Migration
+    public partial class newest_app : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

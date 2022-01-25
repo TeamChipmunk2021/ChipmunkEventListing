@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ChipmunkEventListing.Migrations.ApplicationDb
+namespace ChipmunkEventListing.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220124105315_statusMigration")]
-    partial class statusMigration
+    [Migration("20220125160136_newest_app")]
+    partial class newest_app
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

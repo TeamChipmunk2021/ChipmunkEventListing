@@ -1,12 +1,26 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ChipmunkEventListing.Migrations
+namespace ChipmunkEventListing.Migrations.Event
 {
-    public partial class update_event_model : Migration
+    public partial class new_delete : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
@@ -29,6 +43,7 @@ namespace ChipmunkEventListing.Migrations
                 {
                     EventID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EventTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EventDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -36,6 +51,7 @@ namespace ChipmunkEventListing.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Band = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Venue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -115,6 +131,9 @@ namespace ChipmunkEventListing.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AttendanceUser");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Attendance");
