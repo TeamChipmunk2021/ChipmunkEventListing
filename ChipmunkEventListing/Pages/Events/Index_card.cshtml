@@ -52,12 +52,15 @@
                         <span class="card-title">Card Title</span>
                     </div>
                     <div class="card-content">
-                        @Html.DisplayFor(model => model.Events.ImageLocation)
-                        @Html.DisplayFor(model => model.Events.EventTitle)
-                        @Html.DisplayFor(model => model.Events.EventDescription)
-                        @Html.DisplayFor(model => model.Events.StartDate)
-                        @Html.DisplayFor(model => model.Events.EndDate)
+                        @foreach (var item in Model.Events){
+                        @Html.DisplayFor(modelItem => item.ImageLocation)
+                        @Html.DisplayFor(modelItem => item.EventTitle)
+                        @Html.DisplayFor(modelItem => item.EventDescription)
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                        @Html.DisplayFor(modelItem => item.EndDate)
 
+                           <a asp-page="./Edit" asp-route-id="@item.EventID">Edit</a>;
+                        }
 
 
                     </div>
@@ -68,6 +71,5 @@
             </div>
         </div>
         <div>
-            <a asp-page="./Edit" asp-route-id="@Model.Events.EventID">Edit</a> |
             <a asp-page="./Index_card">Back to List</a>
         </div>

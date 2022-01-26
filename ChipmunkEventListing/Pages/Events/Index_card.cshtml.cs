@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace ChipmunkEventListing.Pages.Events
 {
-    public class Index_cardModel : PageModel
+    public class Index_cardModel : DI_BasePageModel
     {
         
 private readonly EventContext _context;
