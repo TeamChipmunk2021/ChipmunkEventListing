@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ChipmunkEventListing.Migrations.Event
+namespace ChipmunkEventListing.Migrations
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20220125160514_new_delete")]
-    partial class new_delete
+    [Migration("20220126180051_migration1")]
+    partial class migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

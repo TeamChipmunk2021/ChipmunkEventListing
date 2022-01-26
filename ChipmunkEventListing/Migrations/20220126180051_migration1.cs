@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ChipmunkEventListing.Migrations.Event
+namespace ChipmunkEventListing.Migrations
 {
-    public partial class new_delete : Migration
+    public partial class migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
