@@ -9,7 +9,8 @@ namespace ChipmunkEventListing.Pages
     public class UploadModel : PageModel
     {
         private readonly ILogger<UploadModel> _logger;
-        private string fullPath = System.AppDomain.CurrentDomain.BaseDirectory.ToString() + "UploadImages";
+        private string fullPath = Directory.CreateDirectory("images").ToString();
+        // System.AppDomain.CurrentDomain.BaseDirectory.ToString() + "UploadImages";
         public UploadModel(ILogger<UploadModel> logger)
         {
             _logger = logger;
