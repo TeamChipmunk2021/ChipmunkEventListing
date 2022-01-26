@@ -1,0 +1,73 @@
+﻿@page
+@model ChipmunkEventListing.Pages.Events.Index_cardModel
+@{
+    ViewData["Title"] = "Index_card";
+
+}
+
+<div class="container-fluid" style="padding-top:20px; padding-bottom:20px">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-page="./Index_card" method="get">
+                <div class="form-actions no-color">
+                    Find by Event Title:
+                    <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <a asp-page="./Index_card">Back to full List</a>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+
+        <div class="col-md-6">
+            <div class="float-right">
+                @{
+                    var prevDisabled = !Model.Events.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.Events.HasNextPage ? "disabled" : "";
+                }
+                <a asp-page="./Index_card"
+                   asp-route-sortOrder="@Model.CurrentSort"
+                   asp-route-pageIndex="@(Model.Events.PageIndex - 1)"
+                   asp-route-currentFilter="@Model.CurrentFilter"
+                   class="btn btn-primary @prevDisabled">
+                    Previous
+                </a>
+                <a asp-page="./Index_card"
+                   asp-route-sortOrder="@Model.CurrentSort"
+                   asp-route-pageIndex="@(Model.Events.PageIndex + 1)"
+                   asp-route-currentFilter="@Model.CurrentFilter"
+                   class="btn btn-primary @nextDisabled">
+                    Next
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m7">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="images/sample-1.jpg">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        @Html.DisplayFor(model => model.Events.ImageLocation)
+                        @Html.DisplayFor(model => model.Events.EventTitle)
+                        @Html.DisplayFor(model => model.Events.EventDescription)
+                        @Html.DisplayFor(model => model.Events.StartDate)
+                        @Html.DisplayFor(model => model.Events.EndDate)
+
+
+
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a asp-page="./Edit" asp-route-id="@Model.Events.EventID">Edit</a> |
+            <a asp-page="./Index_card">Back to List</a>
+        </div>
