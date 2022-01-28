@@ -15,6 +15,7 @@ using System.Security.Claims;
 
 namespace ChipmunkEventListing.Pages.Events
 {
+    [AllowAnonymous]
     public class Index_cardModel : DI_BasePageModel
     {
         
@@ -41,14 +42,14 @@ public string CurrentSort { get; set; }
 public PaginatedList<Event> Events { get; set; }
 
 public async Task OnGetAsync(string sortOrder,
-    string currentFilter, string searchString, int? pageIndex)
+    string currentFilter, string searchString, int? pageIndex_card)
 {
     CurrentSort = sortOrder;
     EventNameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
     StartDateSort = sortOrder == "Date" ? "date_desc" : "Date";
     if (searchString != null)
     {
-        pageIndex = 1;
+        pageIndex_card = 1;
     }
     else
     {
@@ -74,9 +75,9 @@ public async Task OnGetAsync(string sortOrder,
     if (!isAuthorized)
     {
         eventsIQ = eventsIQ.Where(c => c.Status == EventStatus.Approved
-#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
+
                                     || c.OwnerID == currentUserId);
-#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
+
             }
 
 
@@ -87,35 +88,21 @@ public async Task OnGetAsync(string sortOrder,
         eventsIQ = eventsIQ.Where(s => s.EventTitle.Contains(searchString));
     }
 
-    switch (sortOrder)
-    {
-        case "name_desc":
-            eventsIQ = eventsIQ.OrderByDescending(s => s.EventTitle);
-            break;
-        case "StartDate":
-            eventsIQ = eventsIQ.OrderBy(s => s.StartDate);
-            break;
-        case "date_desc":
-            eventsIQ = eventsIQ.OrderByDescending(s => s.StartDate);
-            break;
-        default:
-            eventsIQ = eventsIQ.OrderBy(s => s.EventTitle);
-            break;
-    }
+            eventsIQ = sortOrder switch
+            {
+                "name_desc" => eventsIQ.OrderByDescending(s => s.EventTitle),
+                "StartDate" => eventsIQ.OrderBy(s => s.StartDate),
+                "date_desc" => eventsIQ.OrderByDescending(s => s.StartDate),
+                _ => eventsIQ.OrderBy(s => s.EventTitle),
+            };
 
-    var pageSize = Configuration.GetValue("PageSize", 4);
+            var pageSize = Configuration.GetValue("PageSize", 4);
     Events = await PaginatedList<Event>.CreateAsync(
-        eventsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+        eventsIQ.AsNoTracking(), pageIndex_card ?? 1, pageSize);
 
     // Users = await usersIQ.AsNoTracking().ToListAsync();
 }
     }
 
-    internal class UserManager
-    {
-        internal static object GetUserId(ClaimsPrincipal user)
-        {
-            throw new NotImplementedException();
-        }
-    }
+  
 }
