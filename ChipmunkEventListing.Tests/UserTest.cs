@@ -9,9 +9,9 @@ namespace ChipmunkEventListing.Tests
         [Fact]
         public void UserShouldBeEmpty()
         {
-          //  User user = new User { Username = "Username1", Email = "Email", Password = "password", UserCreated = DateTime.Now };
+            User user = new User { Username = "Username1", Email = "Email", Password = "password", UserCreated = DateTime.Now };
 
-   //         Assert.Equal(user.Username, "Username1");
+            Assert.Equal(user.Username, "Username1");
 
         }
     }

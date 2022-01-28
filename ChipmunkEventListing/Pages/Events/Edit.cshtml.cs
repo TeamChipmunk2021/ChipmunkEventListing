@@ -18,7 +18,7 @@ namespace ChipmunkEventListing.Pages.Events
         public EditModel(
             EventContext context,
             IAuthorizationService authorisationService,
-            UserManager<User> userManager)
+            UserManager<IdentityUser> userManager)
             : base(context, authorisationService, userManager)
         {
             _context = context;
