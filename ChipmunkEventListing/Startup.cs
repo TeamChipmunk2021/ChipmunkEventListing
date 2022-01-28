@@ -11,6 +11,7 @@ using ChipmunkEventListing.Services;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using ChipmunkEventListing.Authorization;
+using ChipmunkEventListing.Models;
 
 namespace ChipmunkEventListing
 {
@@ -35,9 +36,11 @@ namespace ChipmunkEventListing
 
 
             //Identity
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
 
 
 
@@ -66,7 +69,7 @@ namespace ChipmunkEventListing
             {
             }).AddRazorPagesOptions(options =>
             {
-           
+
                 options.Conventions.AddPageRoute("/Events/Index", "");
             });
 

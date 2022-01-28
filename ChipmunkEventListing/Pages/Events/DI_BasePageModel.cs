@@ -1,4 +1,5 @@
 ﻿using ChipmunkEventListing.Data;
+using ChipmunkEventListing.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,16 +10,24 @@ namespace ChipmunkEventListing.Pages.Events
     {
         protected EventContext Context { get; }
         protected IAuthorizationService AuthorizationService { get; }
-        protected UserManager<IdentityUser> UserManager { get; }
+        protected UserManager<User> UserManager { get; }
+        public IAuthorizationService AuthorisationService { get; }
+        
 
         public DI_BasePageModel(
             EventContext context,
             IAuthorizationService authorizationService,
-            UserManager<IdentityUser> userManager) : base()
+            UserManager<User> userManager) : base()
         {
             Context = context;
             UserManager = userManager;
             AuthorizationService = authorizationService;
+        }
+
+        public DI_BasePageModel(EventContext context, IAuthorizationService authorisationService)
+        {
+            Context = context;
+            AuthorisationService = authorisationService;
         }
     }
 }

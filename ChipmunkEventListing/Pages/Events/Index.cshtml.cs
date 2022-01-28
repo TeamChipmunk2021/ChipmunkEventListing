@@ -24,7 +24,7 @@ namespace ChipmunkEventListing.Pages.Events
             EventContext context, 
             IConfiguration configuration, 
             IAuthorizationService authorizationService, 
-            UserManager<IdentityUser> userManager)
+            UserManager<User> userManager)
             : base(context, authorizationService, userManager)
         {
             _context = context;

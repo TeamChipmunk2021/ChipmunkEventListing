@@ -3,15 +3,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using ChipmunkEventListing.Models;
+
 
 namespace ChipmunkEventListing.Authorization
 {
     public class EventIsOwnerAuthorizationHandler
                 : AuthorizationHandler<OperationAuthorizationRequirement, Event>
     {
-        UserManager<IdentityUser> _userManager;
+        UserManager<User> _userManager;
 
-        public EventIsOwnerAuthorizationHandler(UserManager<IdentityUser>
+        public EventIsOwnerAuthorizationHandler(UserManager<User>
             userManager)
         {
             _userManager = userManager;

@@ -6,6 +6,7 @@ namespace ChipmunkEventListing.Models
     {
 
         public int? AttendanceID { get; set; }
+        [ForeignKey("EventID")]
         public int? EventID { get; set; }
         [ForeignKey("UserID")]
         public int UserID { get; set; }
