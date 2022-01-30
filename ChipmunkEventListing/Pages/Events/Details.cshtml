@@ -1,5 +1,8 @@
 ﻿@page
 @model ChipmunkEventListing.Pages.Events.DetailsModel
+@using ChipmunkEventListing.Authorization
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @{
     ViewData["Title"] = "Details";
@@ -40,19 +43,23 @@
 </div>
 
 <div class=container>
- @*  @Html.DisplayFor(mode => model.Attendance.)*@
+    @* @Html.DisplayFor(mode => model.Attendance.)*@
+
+    @{
+        @if(User.Identity.IsAuthenticated)
+        {
+            <form method="post" class="container-fluid">
+                <div asp-validation-summary="ModelOnly" class="text"></div>
+                <input type="hidden" asp-for="Event.EventID" />
+                <div class="form-group">
+                    <input type="submit" value="I'M GOING!" class="btn btn-danger" />
+                </div>
+            </form>
+
+        }
+    }
 
 </div>
-
-<form method="post" class="container-fluid">
-    <div asp-validation-summary="ModelOnly" class="text"></div>
-    <input type="hidden" asp-for="Event.EventID" />
-        <div class="form-group">
-        <input type="submit" value="I'M GOING!" class="btn btn-danger" />
-    </div>
-</form>
-
-
 
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Event.EventID">Edit</a> |
