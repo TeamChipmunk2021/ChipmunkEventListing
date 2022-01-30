@@ -38,6 +38,8 @@ namespace ChipmunkEventListing.Pages.Events
             }
 
             Event = await _context.Events.FirstOrDefaultAsync(m => m.EventID == id);
+         //   Attendance = await _context.Attendances.FirstOrDefault(m => m.AttendanceID = id);
+        
 
             if (Event == null)
             {
