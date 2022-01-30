@@ -4,23 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ChipmunkEventListing.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ChipmunkEventListing.Data
 {
-    public class EventContext : DbContext
+    public class EventContext : IdentityDbContext
     {
         public EventContext (DbContextOptions<EventContext> options)
             : base(options)
         {
         }
-        public DbSet<User> Users { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
-        public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("User");
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Event>().ToTable("Event");
             modelBuilder.Entity<Attendance>().ToTable("Attendance");
         }

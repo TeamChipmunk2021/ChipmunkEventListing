@@ -28,7 +28,7 @@ namespace ChipmunkEventListing
         {
 
             //Database services
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<EventContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -37,7 +37,7 @@ namespace ChipmunkEventListing
             //Identity
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<EventContext>();
 
 
 

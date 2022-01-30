@@ -32,7 +32,7 @@ namespace ChipmunkEventListing
                     var context = services.GetRequiredService<EventContext>();
                     //context.Database.EnsureCreated();
                     var testUserPw = "SeedUserPW";
-                    DbInitializer.SeedDB((EventContext)services,testUserPw );
+                    DbInitializer.SeedDB((EventContext)services, testUserPw);
                 }
                 catch (Exception ex)
                 {

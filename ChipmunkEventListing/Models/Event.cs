@@ -30,7 +30,7 @@ namespace ChipmunkEventListing.Models
 
 
         //navigation properties
-        public User User { get; set; }
+      //  public User User { get; set; }
         public Attendance Attendances { get; set; }
 
     }

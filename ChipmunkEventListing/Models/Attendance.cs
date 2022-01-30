@@ -11,7 +11,7 @@ namespace ChipmunkEventListing.Models
         public int UserID { get; set; }
 
         //navigation properties
-        public ICollection<User> Users { get; set; }
+      //  public ICollection<User> Users { get; set; }
 
         public Event Event { get; set; }
     }

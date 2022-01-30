@@ -99,20 +99,10 @@ namespace ChipmunkEventListing.Data
             context.Database.EnsureCreated();
 
             // Look for any users.
-            if (context.Users.Any())
+            if (context.Events.Any())
             {
                 return;   // DB has been seeded
             }
-
-            var users = new User[]
-            {
-                new User{ Username="Username1", Email="Email", Password="password", UserCreated=DateTime.Now},
-                new User{ Username="Username2", Email="Email2", Password="password2", UserCreated=DateTime.Now},
-            };
-
-            context.Users.AddRange(users);
-            context.SaveChanges();
-
 
             var events = new Event[]
             {
@@ -122,7 +112,6 @@ namespace ChipmunkEventListing.Data
                     StartDate=DateTime.Parse("2022-2-2"),
                     EndDate=DateTime.Parse("2022-2-2"),
                     ImageLocation="img loc",
-                    User=users[0],
                     Venue= "The Apollo",
                     Band= "Kings of Imagine Dragons",
                     OwnerID = adminID
@@ -133,7 +122,6 @@ namespace ChipmunkEventListing.Data
                     StartDate=DateTime.Parse("2022-2-2"),
                     EndDate=DateTime.Parse("2022-2-2"),
                     ImageLocation="img loc",
-                    User=users[0],
                     Venue= "The Local Tavern",
                     Band= "BONO and U2 Coverband: U4",
                     OwnerID = adminID
@@ -144,13 +132,6 @@ namespace ChipmunkEventListing.Data
             context.Events.AddRange(events);
             context.SaveChanges();
 
-            var attendances = new Attendance[]
-            {
-                new Attendance{ Event=events[0], UserID = (int)users[0].UserID}
-            };
-
-            context.Attendances.AddRange(attendances);
-            context.SaveChanges();
         }
     }
 }
