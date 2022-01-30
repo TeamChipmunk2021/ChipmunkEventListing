@@ -60,18 +60,18 @@ namespace ChipmunkEventListing.Pages.Events
                 return Page();
             }
 
-            // Fetch Contact from DB to get OwnerID.
-            var contact = await Context
+            // Fetch Event from DB to get OwnerID.
+            var userid = await Context
                 .Events.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.EventID == id);
 
-            if (contact == null)
+            if (userid == null)
             {
                 return NotFound();
             }
 
             var isAuthorized = await AuthorizationService.AuthorizeAsync(
-                                                     User, contact,
+                                                     User, userid,
                                                      EventOperations.Update);
             if (!isAuthorized.Succeeded)
             {

@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 namespace ChipmunkEventListing.Models
 {
     public class Attendance
     {
 
         public int? AttendanceID { get; set; }
+        [Required]
         public int? EventID { get; set; }
-        [ForeignKey("UserID")]
-        public int UserID { get; set; }
+        public string Username { get; set; }
+
 
         //navigation properties
-        public ICollection<User> Users { get; set; }
 
-        public Event Event { get; set; }
+        //  public Event Event { get; set; }
     }
+
+
 }

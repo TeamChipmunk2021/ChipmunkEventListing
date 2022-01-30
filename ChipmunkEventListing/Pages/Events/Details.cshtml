@@ -1,95 +1,65 @@
 ﻿@page
 @model ChipmunkEventListing.Pages.Events.DetailsModel
+@using ChipmunkEventListing.Authorization
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<div class="container-fluid" style="margin-bottom: 20px";>
-	<div class="row">
-		<div class="col-md-2">
+<div class="container-fluid" style="margin-bottom: 20px" ;>
+    <div class="row">
+        <div class="col-md-2">
             <h4>Start Date</h4>
-        @Html.DisplayFor(model => model.Event.StartDate)
-		</div>
-		<div class="col-md-10">
+            @Html.DisplayFor(model => model.Event.StartDate)
+        </div>
+        <div class="col-md-10">
             <h4>Event Title</h4>
-        @Html.DisplayFor(model => model.Event.EventTitle)
-		</div>
-	</div>
-       <hr style="background-color:white" />
-	<div class="row">
-		<div class="col-md-6">
-                @Html.DisplayFor(model => model.Event.ImageLocation)
-		</div>
-		<div class="col-md-6">
-            <h4>Event Description</h4> 
-                 @Html.DisplayFor(model => model.Event.EventDescription)
-		</div>
-	</div>
-       <hr style="background-color:white" />
-	<div class="row">
-		<div class="col-md-6">
+            @Html.DisplayFor(model => model.Event.EventTitle)
+        </div>
+    </div>
+    <hr style="background-color:white" />
+    <div class="row">
+        <div class="col-md-6">
+            @Html.DisplayFor(model => model.Event.ImageLocation)
+        </div>
+        <div class="col-md-6">
+            <h4>Event Description</h4>
+            @Html.DisplayFor(model => model.Event.EventDescription)
+        </div>
+    </div>
+    <hr style="background-color:white" />
+    <div class="row">
+        <div class="col-md-6">
             <h4>Line Up</h4>
-                  @Html.DisplayFor(model => model.Event.Band)
-		</div>
-		<div class="col-md-6">
+            @Html.DisplayFor(model => model.Event.Band)
+        </div>
+        <div class="col-md-6">
             <h4>Venue Information</h4>
-                @Html.DisplayFor(model => model.Event.Venue)
-		</div>
-	</div>
+            @Html.DisplayFor(model => model.Event.Venue)
+        </div>
+    </div>
 </div>
 
 
 
-@*<div>
-    <h4>Event</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.EventTitle)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.EventTitle)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.EventDescription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.EventDescription)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.ImageLocation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.ImageLocation)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Band)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.Band)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Venue)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.Venue)
-        </dd>
-    </dl>
-</div>*@
+<div class=container>
+    @{
+        @if(User.Identity.IsAuthenticated)
+        {
+            <form method="post" class="container-fluid">
+                <div asp-validation-summary="ModelOnly" class="text"></div>
+                <input type="hidden" asp-for="Event.EventID" />
+                <div class="form-group">
+                    <input type="submit" value="I'M GOING!" class="btn btn-danger" />
+                </div>
+            </form>
 
+        }
+    }
+
+</div>
 
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Event.EventID">Edit</a> |

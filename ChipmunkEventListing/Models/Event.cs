@@ -12,7 +12,9 @@ namespace ChipmunkEventListing.Models
 
 
         public int EventID { get; set; }
+        [Display(Name = "Event Title")]
         public string EventTitle { get; set; }
+        [Display(Name = "Event Description")]
         public string EventDescription { get; set; }
         public string ImageLocation { get; set; }
 
@@ -21,8 +23,9 @@ namespace ChipmunkEventListing.Models
 
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
-
+        [Display(Name = "Band")]
         public string Band { get; set; }
+        [Display(Name = "Venue")]
         public string Venue { get; set; }
 
         public EventStatus Status { get; set; }
@@ -30,8 +33,8 @@ namespace ChipmunkEventListing.Models
 
 
         //navigation properties
-        public User User { get; set; }
-        public Attendance Attendances { get; set; }
+      //  public User User { get; set; }
+        public ICollection<Attendance> Attendances { get; set; }
 
     }
 

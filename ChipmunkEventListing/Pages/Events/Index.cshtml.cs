@@ -53,7 +53,8 @@ namespace ChipmunkEventListing.Pages.Events
             {
                 searchString = currentFilter;
             }
-            // using System;
+
+
             EventNameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             StartDateSort = sortOrder == "Date" ? "date_desc" : "Date";
 
@@ -104,7 +105,6 @@ namespace ChipmunkEventListing.Pages.Events
             Events = await PaginatedList<Event>.CreateAsync(
                 eventsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
 
-            // Users = await usersIQ.AsNoTracking().ToListAsync();
         }
     }
 }
