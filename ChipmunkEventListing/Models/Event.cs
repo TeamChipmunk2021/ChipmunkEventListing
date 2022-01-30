@@ -31,7 +31,7 @@ namespace ChipmunkEventListing.Models
 
         //navigation properties
       //  public User User { get; set; }
-        public Attendance Attendances { get; set; }
+        public ICollection<Attendance> Attendances { get; set; }
 
     }
 

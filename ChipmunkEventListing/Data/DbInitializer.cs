@@ -114,7 +114,8 @@ namespace ChipmunkEventListing.Data
                     ImageLocation="img loc",
                     Venue= "The Apollo",
                     Band= "Kings of Imagine Dragons",
-                    OwnerID = adminID
+                    OwnerID = adminID,
+
                 },
                 new Event{
                     EventTitle="Event 2 Title",
@@ -131,6 +132,7 @@ namespace ChipmunkEventListing.Data
 
             context.Events.AddRange(events);
             context.SaveChanges();
+
 
         }
     }

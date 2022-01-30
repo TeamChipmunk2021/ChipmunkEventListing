@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace ChipmunkEventListing.Models
 {
@@ -7,12 +8,13 @@ namespace ChipmunkEventListing.Models
 
         public int? AttendanceID { get; set; }
         public int? EventID { get; set; }
-        [ForeignKey("UserID")]
-        public int UserID { get; set; }
+        public string Username { get; set; }
+
 
         //navigation properties
-      //  public ICollection<User> Users { get; set; }
 
-        public Event Event { get; set; }
+        //  public Event Event { get; set; }
     }
+
+
 }
