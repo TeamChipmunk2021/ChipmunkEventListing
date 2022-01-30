@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 namespace ChipmunkEventListing.Models
 {
     public class Attendance
     {
 
         public int? AttendanceID { get; set; }
+        [Required]
         public int? EventID { get; set; }
         public string Username { get; set; }
 

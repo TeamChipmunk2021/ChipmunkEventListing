@@ -10,6 +10,7 @@ using ChipmunkEventListing.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using ChipmunkEventListing.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace ChipmunkEventListing.Pages.Events
 {
@@ -17,18 +18,21 @@ namespace ChipmunkEventListing.Pages.Events
     public class DetailsModel : DI_BasePageModel
     {
 
-        private readonly ChipmunkEventListing.Data.EventContext _context;
+        private readonly EventContext _context;
         public DetailsModel(
             EventContext context,
+            IConfiguration configuration,
             IAuthorizationService authorisationService,
             UserManager<IdentityUser> userManager)
             : base(context, authorisationService, userManager)
         {
             _context = context;
+ 
         }
 
         [BindProperty]
         public Event Event { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -38,8 +42,7 @@ namespace ChipmunkEventListing.Pages.Events
             }
 
             Event = await _context.Events.FirstOrDefaultAsync(m => m.EventID == id);
-         //   Attendance = await _context.Attendances.FirstOrDefault(m => m.AttendanceID = id);
-        
+
 
             if (Event == null)
             {
@@ -49,7 +52,7 @@ namespace ChipmunkEventListing.Pages.Events
         }
 
 
-    
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -76,6 +79,7 @@ namespace ChipmunkEventListing.Pages.Events
 
             Context.Attendances.Add(newAttendance);
             await Context.SaveChangesAsync();
+
 
             return RedirectToPage("./Index");
         }
