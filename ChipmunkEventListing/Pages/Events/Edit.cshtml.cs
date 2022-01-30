@@ -61,24 +61,23 @@ namespace ChipmunkEventListing.Pages.Events
             }
 
             // Fetch Event from DB to get OwnerID.
-            var userid = await Context
+            var contact = await Context
                 .Events.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.EventID == id);
 
-            if (userid == null)
+            if (contact == null)
             {
                 return NotFound();
             }
 
+            Event.OwnerID = contact.OwnerID; 
             var isAuthorized = await AuthorizationService.AuthorizeAsync(
-                                                     User, userid,
+                                                     User, contact,
                                                      EventOperations.Update);
             if (!isAuthorized.Succeeded)
             {
                 return Forbid();
             }
-
-            Event.OwnerID = Event.OwnerID;
 
             Context.Attach(Event).State = EntityState.Modified;
 
@@ -94,7 +93,7 @@ namespace ChipmunkEventListing.Pages.Events
                     Event.Status = EventStatus.Approved;
                 }
             }
-
+            Event.OwnerID = contact.OwnerID;
             await Context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
