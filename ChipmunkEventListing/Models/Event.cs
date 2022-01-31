@@ -10,7 +10,6 @@ namespace ChipmunkEventListing.Models
         // user ID from AspNetUser table.
         public string OwnerID { get; set; }
 
-
         public int EventID { get; set; }
         [Display(Name = "Event Title")]
         public string EventTitle { get; set; }
@@ -31,16 +30,13 @@ namespace ChipmunkEventListing.Models
         public EventStatus Status { get; set; }
 
 
-
-        //navigation properties
-      //  public User User { get; set; }
         public ICollection<Attendance> Attendances { get; set; }
 
     }
 
-    public enum EventStatus 
+    public enum EventStatus
     {
-      Approved
+        Approved
     }
 
 

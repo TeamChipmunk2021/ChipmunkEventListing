@@ -17,7 +17,6 @@ namespace ChipmunkEventListing.Pages.Events
     [AllowAnonymous]
     public class DetailsModel : DI_BasePageModel
     {
-
         private readonly EventContext _context;
         public DetailsModel(
             EventContext context,
@@ -27,7 +26,7 @@ namespace ChipmunkEventListing.Pages.Events
             : base(context, authorisationService, userManager)
         {
             _context = context;
- 
+
         }
 
         [BindProperty]
@@ -50,8 +49,6 @@ namespace ChipmunkEventListing.Pages.Events
             }
             return Page();
         }
-
-
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -80,16 +77,8 @@ namespace ChipmunkEventListing.Pages.Events
             Context.Attendances.Add(newAttendance);
             await Context.SaveChangesAsync();
 
-
             return RedirectToPage("./Index");
         }
-
-
     }
-
-
-
-
-
 }
 

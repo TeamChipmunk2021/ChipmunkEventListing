@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ChipmunkEventListing.Pages.Events
 {
-
     public class EditModel : DI_BasePageModel
     {
         private readonly ChipmunkEventListing.Data.EventContext _context;
@@ -70,7 +69,7 @@ namespace ChipmunkEventListing.Pages.Events
                 return NotFound();
             }
 
-            Event.OwnerID = contact.OwnerID; 
+            Event.OwnerID = contact.OwnerID;
             var isAuthorized = await AuthorizationService.AuthorizeAsync(
                                                      User, contact,
                                                      EventOperations.Update);
@@ -99,8 +98,6 @@ namespace ChipmunkEventListing.Pages.Events
             return RedirectToPage("./Index");
         }
     }
-
-
 }
 
 
